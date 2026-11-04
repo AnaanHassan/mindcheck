@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="A free, private 3-minute mood and anxiety check (PHQ-9 and GAD-7) from Dr. Abdul Samad Memorial Hospital. English and Dhivehi.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#eef5f4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f1a1c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f5ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111a13" media="(prefers-color-scheme: dark)">
 <meta name="format-detection" content="telephone=no">
 <meta name="apple-mobile-web-app-title" content="Mind Check">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23dcefec'/%3E%3Ccircle cx='32' cy='32' r='12' fill='%232a8a83'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%232e5b39'/%3E%3Ccircle cx='32' cy='32' r='11' fill='%238cc63f'/%3E%3C/svg%3E">
 <title>Mind Check</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,28 +26,25 @@ button,a{touch-action:manipulation}
 
 /* Layout: one calm centred column, a soft progress bar on top, one question at a time. */
 :root{
-  --bg:#eef5f4; --surface:#ffffff; --soft:#e2efed; --line:#d3e3e1; --fg:#1c2c2e; --muted:#5e7275;
-  --accent:#2a8a83; --accent-hi:#237770; --accent-soft:#dcefec; --on-accent:#ffffff;
-  --ok:#3c9465; --mild:#b98a1c; --mod:#c46a35; --sev:#c24848; --sev-soft:#fbecec; --logo-n:#045276; --logo-t:#03b7bb;
+  /* Light-mode colours tuned to pass WCAG AA contrast (4.5:1 text, 3:1 controls) */
+  /* "Awareness Green": forest green with a lime ribbon accent */
+  --bg:#f3f5ee; --surface:#ffffff; --soft:#e6ebdb; --line:#dde3d0; --fg:#17241a; --muted:#4b594d;
+  --opt-line:#c6cfb8; --edge:#7e8e7b;
+  --accent:#2e5b39; --accent-hi:#234a2d; --accent-soft:#e4eed8; --on-accent:#ffffff;
+  --ok:#2b7a50; --mild:#8a6610; --mod:#a4531f; --sev:#a83a3a; --sev-soft:#fbecec; --logo-n:#045276; --logo-t:#03b7bb;
   --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
   --body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0f1a1c; --surface:#162426; --soft:#1c2e31; --line:#25393c; --fg:#e6efee; --muted:#93a8aa;
-  --accent:#6cc2b8; --accent-hi:#86d0c7; --accent-soft:#1d3735; --on-accent:#0c1a1b;
+  --bg:#111a13; --surface:#18231a; --soft:#1f2d21; --line:#2a3a2c; --fg:#e7eee4; --muted:#9fb09f; --opt-line:#34473a; --edge:#64796a;
+  --accent:#a3cf86; --accent-hi:#b8dca0; --accent-soft:#243826; --on-accent:#10190f;
   --ok:#7ccb9c; --mild:#e3c169; --mod:#ec9c6c; --sev:#f08585; --sev-soft:#2c1b1d; --logo-n:#d3e8ee; --logo-t:#3ccbcd; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0f1a1c; --surface:#162426; --soft:#1c2e31; --line:#25393c; --fg:#e6efee; --muted:#93a8aa;
-  --accent:#6cc2b8; --accent-hi:#86d0c7; --accent-soft:#1d3735; --on-accent:#0c1a1b;
+  --bg:#111a13; --surface:#18231a; --soft:#1f2d21; --line:#2a3a2c; --fg:#e7eee4; --muted:#9fb09f; --opt-line:#34473a; --edge:#64796a;
+  --accent:#a3cf86; --accent-hi:#b8dca0; --accent-soft:#243826; --on-accent:#10190f;
   --ok:#7ccb9c; --mild:#e3c169; --mod:#ec9c6c; --sev:#f08585; --sev-soft:#2c1b1d; --logo-n:#d3e8ee; --logo-t:#3ccbcd; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
-/* Soft, calm colour wash behind everything. A fixed layer, because iOS ignores background-attachment:fixed. */
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(60% 45% at 85% 0%,var(--accent-soft),transparent 70%),radial-gradient(55% 40% at 0% 100%,var(--glow),transparent 70%)}
-:root{--glow:#e6eefb}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--glow:#16222f}}
-:root[data-theme="dark"]{--glow:#16222f}
 .wrap{max-width:680px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
 header{display:flex;flex-direction:column;gap:14px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--muted)}
@@ -57,7 +54,7 @@ header{display:flex;flex-direction:column;gap:14px}
 .progress .meta{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 .track{height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
 .track i{display:block;height:100%;width:0;border-radius:99px;background:var(--accent);transition:width .35s ease}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:24px;box-shadow:0 1px 2px rgba(20,50,50,.04),0 8px 28px rgba(20,50,50,.06)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:24px;box-shadow:0 1px 2px rgba(23,36,26,.04),0 8px 28px rgba(23,36,26,.06)}
 @media (max-width:540px){.card{padding:26px 20px;border-radius:20px}}
 h1,h2{font-family:var(--display);font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0}
 h1{font-size:40px;line-height:1.1}
@@ -68,11 +65,15 @@ p{margin:0}
 .muted{color:var(--muted)}
 .small{font-size:15px}
 .label{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media (max-width:540px){.facts{gap:8px}.fact{padding:12px 10px;border-radius:14px}.fact b{font-size:16px!important;line-height:1.3}.fact span{font-size:13px!important;line-height:1.35}}
-.fact{background:var(--soft);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:2px}
-.fact b{font-family:var(--display);font-weight:600;font-size:18px}
-.fact span{font-size:15px;color:var(--muted)}
+/* Intro facts: one compact line of small notes with icons, wraps neatly on narrow phones */
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:0;list-style:none}
+.facts li{display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:600;color:var(--muted)}
+.facts svg{width:18px;height:18px;flex:none;color:var(--accent)}
+/* Two start buttons: one per language */
+.starts{display:flex;flex-direction:column;gap:10px}
+.starts .btn{width:100%}
+.starts .btn[lang="dv"]{font-family:"Faruma Web","Noto Sans Thaana",sans-serif;font-weight:400;font-size:20px;padding-block:12px}
+@media (min-width:541px){.starts{flex-direction:row}.starts .btn{width:auto;min-width:220px}}
 .btn{font:inherit;font-weight:700;font-size:17px;padding:15px 30px;border-radius:99px;border:0;background:var(--accent);color:var(--on-accent);cursor:pointer;transition:background .15s,transform .15s}
 .btn:active{transform:scale(.98)}
 .link{background:none;border:0;color:var(--muted);font:inherit;font-size:16px;font-weight:600;cursor:pointer;min-height:44px;padding:10px 14px;margin-inline-start:-14px;border-radius:12px;display:inline-flex;align-items:center;gap:6px}
@@ -87,16 +88,14 @@ p{margin:0}
   .expo:hover,footer .expo-foot a:hover{text-decoration:underline}
 }
 html[dir="rtl"] .arr{display:inline-block;transform:scaleX(-1)}
-#start{width:100%}
-@media (min-width:541px){#start{width:auto;min-width:220px}}
 .btn:focus-visible,.link:focus-visible,.opt:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
 .stem{font-size:16px;color:var(--muted)}
 .opts{display:flex;flex-direction:column;gap:10px}
 .opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;font-size:17px;font-weight:600;color:var(--fg);
-  background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px 18px;min-height:60px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+  background:var(--surface);border:2px solid var(--opt-line);border-radius:16px;padding:16px 18px;min-height:60px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
 .opt:active{transform:scale(.985)}
-.opt .r{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;transition:border-color .15s}
+.opt .r{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--edge);display:grid;place-items:center;transition:border-color .15s}
 .opt .r i{width:10px;height:10px;border-radius:50%;background:var(--accent);transform:scale(0);transition:transform .15s}
 .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
 .opt.sel .r{border-color:var(--accent)}
@@ -146,12 +145,11 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding-top:4px}
 .btn.outline{background:transparent;color:var(--accent);border:2px solid var(--accent);padding:13px 26px}
 .print-only{display:none}
 @media print{
-  :root{--bg:#fff;--surface:#fff;--soft:#f1f6f5;--line:#cfdcdb;--fg:#111;--muted:#444;--accent:#1f6f69;--accent-soft:#eaf4f3;--ok:#2b7a50;--mild:#8a6610;--mod:#9e4d1f;--sev:#a02c2c;--sev-soft:#fbeeee;--logo-n:#045276;--logo-t:#03b7bb;color-scheme:light}
+  :root{--bg:#fff;--surface:#fff;--soft:#f2f5ec;--line:#d6ddc9;--fg:#111;--muted:#444;--accent:#2e5b39;--accent-soft:#e9f0df;--ok:#2b7a50;--mild:#8a6610;--mod:#9e4d1f;--sev:#a02c2c;--sev-soft:#fbeeee;--logo-n:#045276;--logo-t:#03b7bb;color-scheme:light}
   body{font-size:12pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .wrap{max-width:none;padding:0;gap:12px}
   .card{box-shadow:none;border:0;padding:0}
   .actions,#progress,.brand,.try,.breath{display:none!important}
-  body::before{display:none}
   .numbers a{border:0;padding:0;background:none}
   .print-only{display:block}
   .recs li,.score,.help,.urgent{break-inside:avoid}
@@ -163,21 +161,21 @@ footer{text-align:center;font-size:14px;color:var(--muted);padding-top:4px}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .lang{display:inline-flex;background:var(--soft);border-radius:99px;padding:4px;gap:2px}
 .lang button{font:inherit;font-size:15px;font-weight:700;border:0;border-radius:99px;padding:6px 14px;min-height:40px;background:transparent;color:var(--muted);cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(20,50,50,.12)}
+.lang button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(23,36,26,.12)}
 .lang button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .lang .dv-label{font-family:"Faruma Web","Noto Sans Thaana",sans-serif;font-size:17px}
 .opt{text-align:start}
 html[lang="dv"]{--display:"MV Waheed Web","Bricolage Grotesque","Noto Sans Thaana",sans-serif;--body:"Faruma Web","Nunito Sans","Noto Sans Thaana",sans-serif}
 html[lang="dv"] body{line-height:1.95;font-size:19px;font-synthesis:none}
 html[lang="dv"] h1,html[lang="dv"] h2{letter-spacing:0;line-height:1.6;font-weight:400}
-html[lang="dv"] .fact b,html[lang="dv"] .recs li b{font-weight:400;font-size:20px}
+html[lang="dv"] .recs li b{font-weight:400;font-size:20px}
 .rh{font-size:34px}.ih{font-size:22px}
 html[lang="dv"] .rh{font-size:38px}html[lang="dv"] .ih{font-size:27px}
 html[lang="dv"] .lead{font-size:20px}
 html[lang="dv"] h1{font-size:44px}
 html[lang="dv"] h2{font-size:31px}
 @media (max-width:540px){html[lang="dv"] h1{font-size:36px}html[lang="dv"] h2{font-size:27px}}
-html[lang="dv"] .small,html[lang="dv"] .fact span,html[lang="dv"] footer,html[lang="dv"] .numbers span,html[lang="dv"] .progress .meta{font-size:17px}
+html[lang="dv"] .small,html[lang="dv"] .facts li,html[lang="dv"] footer,html[lang="dv"] .numbers span,html[lang="dv"] .progress .meta{font-size:17px}
 html[lang="dv"] .stem{font-size:18px}
 html[lang="dv"] .btn,html[lang="dv"] .link,html[lang="dv"] .try{font-size:19px}
 html[lang="dv"] .label{letter-spacing:0;text-transform:none;font-size:16px}
@@ -190,15 +188,15 @@ html[lang="dv"] .num,html[lang="dv"] .numbers b{font-family:"Bricolage Grotesque
 
 .lg-n{fill:var(--logo-n)}.lg-t{fill:var(--logo-t)}
 .brand .emblem{width:34px;height:auto;flex:none}
-footer{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:16px}
-footer .logo{width:80px;height:auto;max-width:100%}
+footer{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:16px}
+footer .logo{width:52px;height:auto;max-width:100%}
 footer .expo-foot{color:var(--muted);font-size:14px}
 footer .expo-foot a{color:var(--accent);font-weight:700;text-decoration:none}
 .expo{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:7px 14px;border-radius:99px;text-decoration:none}
 .expo:focus-visible,footer a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .expo i{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
 html[lang="dv"] .expo,html[lang="dv"] footer .expo-foot{font-size:16px}
-@media print{footer .expo-foot,.expo{display:none!important}footer .logo{width:90px}}
+@media print{footer .expo-foot,.expo{display:none!important}footer .logo{width:60px}}
 </style>
 </head>
 <body>
@@ -219,16 +217,18 @@ html[lang="dv"] .expo,html[lang="dv"] footer .expo-foot{font-size:16px}
   </header>
 
   <section class="card" id="intro">
-    <a class="expo" id="expo-link" href="https://www.instagram.com/reel/DeyyjW4qTkR/" target="_blank" rel="noopener"><i></i><span data-t="expo"></span></a>
     <span class="label" data-t="hello"></span>
     <h1 data-t="title"></h1>
     <p class="lead" data-t="lead"></p>
-    <div class="facts">
-      <div class="fact"><b data-t="f1a"></b><span data-t="f1b"></span></div>
-      <div class="fact"><b data-t="f2a"></b><span data-t="f2b"></span></div>
-      <div class="fact"><b data-t="f3a"></b><span data-t="f3b"></span></div>
+    <ul class="facts">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg><span data-t="fact1"></span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-t="fact2"></span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span data-t="fact3"></span></li>
+    </ul>
+    <div class="starts">
+      <button class="btn" id="start-en" data-lang="en" lang="en" dir="ltr">Start in English</button>
+      <button class="btn outline" id="start-dv" data-lang="dv" lang="dv" dir="rtl">ދިވެހިން ފަށަމާ</button>
     </div>
-    <div><button class="btn" id="start" data-t="start"></button></div>
   </section>
 
   <section class="card" id="quiz" hidden>
@@ -242,7 +242,7 @@ html[lang="dv"] .expo,html[lang="dv"] footer .expo-foot{font-size:16px}
 
   <section class="card" id="result" hidden></section>
 
-  <footer><svg class="logo" viewBox="0 0 695.84 840.55" role="img" aria-label="Dr. Abdul Samad Memorial Hospital"><path class="lg-n" d="M58.73,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38H10.14v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52,2.34,4.08,3.51,8.77,3.51,14.12ZM45.32,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0ZM93.69,759.65l-11.24-20.41h-3.16v20.41h-13.16v-54.07h22.09c4.26,0,7.9.74,10.89,2.25,3.01,1.48,5.26,3.51,6.74,6.11,1.48,2.6,2.23,5.48,2.23,8.67,0,3.6-1,6.81-3.03,9.63s-5.02,4.82-8.97,6l12.48,21.41h-14.86ZM79.29,729.92h8.16c2.42,0,4.23-.59,5.43-1.77s1.81-2.84,1.81-5-.61-3.67-1.81-4.85c-1.2-1.2-3.01-1.79-5.43-1.79h-8.16v13.4h0ZM114.62,753.19c0-2.05.72-3.78,2.18-5.15,1.46-1.4,3.36-2.1,5.67-2.1s4.1.7,5.57,2.1c1.46,1.38,2.2,3.1,2.2,5.15s-.74,3.67-2.2,5.04c-1.46,1.35-3.32,2.03-5.57,2.03s-4.21-.68-5.67-2.03c-1.46-1.38-2.18-3.06-2.18-5.04ZM171.68,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54h0ZM168.3,739.94l-6.7-19.8-6.61,19.8h13.31ZM237.9,744.94c0,4.52-1.57,8.12-4.74,10.76-3.16,2.64-7.55,3.95-13.21,3.95h-25.17v-54.07h24.34c5.48,0,9.78,1.27,12.88,3.78,3.12,2.51,4.67,5.94,4.67,10.26,0,3.16-.83,5.81-2.51,7.92-1.66,2.12-3.89,3.58-6.66,4.39,3.12.68,5.63,2.23,7.53,4.67,1.9,2.42,2.86,5.22,2.86,8.34h0ZM207.95,727.45h8.62c2.16,0,3.8-.48,4.95-1.42,1.16-.94,1.75-2.34,1.75-4.19s-.59-3.25-1.75-4.23c-1.16-.98-2.79-1.46-4.95-1.46h-8.62v11.31h0ZM224.59,743.17c0-1.9-.63-3.38-1.9-4.45-1.24-1.09-2.99-1.64-5.19-1.64h-9.54v11.94h9.69c2.2,0,3.93-.5,5.13-1.48,1.2-1,1.81-2.47,1.81-4.36h0ZM294.13,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38h-20.26v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52,2.34,4.08,3.51,8.77,3.51,14.12h0ZM280.73,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0ZM314.45,705.58v32.35c0,3.23.79,5.72,2.38,7.46s3.95,2.62,7.03,2.62,5.43-.87,7.07-2.62c1.64-1.75,2.47-4.23,2.47-7.46v-32.35h13.16v32.28c0,4.82-1.03,8.91-3.08,12.24-2.05,3.34-4.8,5.85-8.27,7.55-3.47,1.68-7.33,2.53-11.59,2.53s-8.08-.83-11.44-2.51-6.02-4.19-7.97-7.55-2.92-7.44-2.92-12.27v-32.28h13.16ZM368.97,749.48h17.24v10.17h-30.4v-54.07h13.16v43.89h0ZM407.32,743.47h14.01c.2,2.01.89,3.54,2.07,4.58,1.2,1.05,2.73,1.57,4.63,1.57s3.49-.44,4.61-1.33c1.13-.89,1.7-2.14,1.7-3.73,0-1.33-.46-2.44-1.35-3.32-.89-.87-1.99-1.59-3.3-2.16s-3.16-1.2-5.59-1.92c-3.49-1.07-6.35-2.16-8.56-3.23-2.2-1.07-4.1-2.66-5.7-4.78s-2.38-4.85-2.38-8.23c0-5.04,1.81-8.97,5.46-11.83s8.4-4.28,14.25-4.28,10.76,1.42,14.41,4.28,5.61,6.81,5.85,11.9h-14.23c-.11-1.75-.76-3.12-1.94-4.1-1.18-1-2.68-1.51-4.54-1.51-1.59,0-2.86.41-3.84,1.27-.98.85-1.46,2.05-1.46,3.65,0,1.75.83,3.1,2.47,4.08s4.21,2.03,7.68,3.16c3.49,1.18,6.33,2.31,8.51,3.38,2.18,1.07,4.06,2.64,5.65,4.69,1.59,2.05,2.4,4.69,2.4,7.94,0,3.08-.79,5.87-2.36,8.38-1.55,2.51-3.82,4.52-6.81,6.02-2.99,1.48-6.5,2.23-10.54,2.23s-7.51-.63-10.63-1.92-5.63-3.19-7.51-5.7c-1.88-2.51-2.86-5.54-2.97-9.1h0ZM489.87,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54h0ZM486.49,739.94l-6.7-19.8-6.61,19.8h13.31ZM574.19,705.58v54.07h-13.16v-32.41l-12.09,32.41h-10.63l-12.16-32.5v32.5h-13.16v-54.07h15.54l15.17,37.43,15.02-37.43h15.48ZM617.32,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54ZM613.93,739.94l-6.7-19.8-6.61,19.8h13.31ZM689.02,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38h-20.26v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52s3.51,8.77,3.51,14.12h0ZM675.61,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0Z"/><path class="lg-n" d="M57.67,793.01v47.06h-11.46v-28.21l-10.53,28.21h-9.25l-10.58-28.29v28.29H4.39v-47.06h13.53l13.2,32.58,13.07-32.58h13.47ZM77.39,802.21v9.52h15.35v8.83h-15.35v10.33h17.36v9.18h-28.82v-47.06h28.82v9.2h-17.36ZM155.47,793.01v47.06h-11.46v-28.21l-10.53,28.21h-9.25l-10.58-28.29v28.29h-11.46v-47.06h13.53l13.2,32.58,13.07-32.58h13.47ZM161.77,816.42c0-4.62,1.08-8.74,3.25-12.41,2.18-3.67,5.11-6.52,8.8-8.57,3.69-2.07,7.73-3.1,12.16-3.1s8.47,1.03,12.16,3.1c3.69,2.05,6.59,4.9,8.7,8.57,2.13,3.67,3.19,7.79,3.19,12.41s-1.06,8.74-3.21,12.42c-2.15,3.69-5.05,6.55-8.72,8.63-3.67,2.05-7.69,3.08-12.12,3.08s-8.47-1.03-12.16-3.08c-3.69-2.07-6.61-4.94-8.8-8.63-2.17-3.69-3.25-7.83-3.25-12.42ZM198.38,816.42c0-4.16-1.14-7.47-3.4-9.96-2.26-2.49-5.26-3.72-9-3.72s-6.82,1.24-9.08,3.69c-2.26,2.45-3.38,5.79-3.38,9.99s1.12,7.47,3.38,9.96c2.26,2.47,5.28,3.7,9.08,3.7s6.74-1.25,9-3.74c2.26-2.51,3.4-5.81,3.4-9.92h0ZM240.41,840.07l-9.78-17.76h-2.75v17.76h-11.46v-47.06h19.23c3.7,0,6.88.65,9.48,1.96,2.62,1.29,4.58,3.06,5.87,5.32,1.29,2.26,1.94,4.77,1.94,7.54,0,3.13-.87,5.93-2.64,8.38-1.77,2.45-4.37,4.2-7.81,5.22l10.87,18.64h-12.94ZM227.87,814.2h7.11c2.11,0,3.69-.51,4.73-1.54,1.05-1.03,1.58-2.47,1.58-4.35s-.53-3.19-1.58-4.22c-1.04-1.04-2.62-1.56-4.73-1.56h-7.11v11.66ZM271.56,793.01v47.06h-11.46v-47.06h11.46ZM309.16,831.77h-17.55l-2.81,8.3h-12.01l17.04-47.06h13.26l17.02,47.06h-12.12l-2.83-8.3h0ZM306.21,822.92l-5.83-17.23-5.76,17.23h11.59ZM340.73,831.22h15.01v8.85h-26.46v-47.06h11.46v38.2h0ZM416.21,793.01v47.06h-11.47v-19.38h-17.82v19.38h-11.46v-47.06h11.46v18.45h17.82v-18.45h11.47ZM422.5,816.42c0-4.62,1.08-8.74,3.25-12.41,2.18-3.67,5.11-6.52,8.8-8.57,3.69-2.07,7.73-3.1,12.16-3.1s8.47,1.03,12.16,3.1c3.69,2.05,6.59,4.9,8.7,8.57,2.13,3.67,3.19,7.79,3.19,12.41s-1.06,8.74-3.21,12.42c-2.15,3.69-5.05,6.55-8.72,8.63-3.67,2.05-7.69,3.08-12.12,3.08s-8.47-1.03-12.16-3.08c-3.69-2.07-6.61-4.94-8.8-8.63-2.17-3.69-3.25-7.83-3.25-12.42h0ZM459.11,816.42c0-4.16-1.14-7.47-3.4-9.96-2.26-2.49-5.26-3.72-9-3.72s-6.82,1.24-9.08,3.69c-2.26,2.45-3.38,5.79-3.38,9.99s1.12,7.47,3.38,9.96c2.26,2.47,5.28,3.7,9.08,3.7s6.74-1.25,9-3.74c2.26-2.51,3.4-5.81,3.4-9.92h0ZM475.79,825.99h12.2c.17,1.75.78,3.08,1.8,3.99,1.04.91,2.37,1.37,4.03,1.37s3.04-.38,4.01-1.16c.99-.78,1.48-1.86,1.48-3.25,0-1.16-.4-2.13-1.18-2.89-.78-.76-1.73-1.39-2.87-1.88-1.14-.49-2.75-1.04-4.86-1.67-3.04-.93-5.53-1.88-7.45-2.81-1.92-.93-3.57-2.32-4.96-4.16-1.39-1.84-2.07-4.22-2.07-7.16,0-4.39,1.58-7.81,4.75-10.3s7.31-3.72,12.41-3.72,9.37,1.24,12.54,3.72c3.17,2.49,4.88,5.93,5.09,10.35h-12.39c-.09-1.52-.67-2.72-1.69-3.57-1.03-.87-2.34-1.31-3.95-1.31-1.39,0-2.49.36-3.34,1.1-.85.74-1.27,1.79-1.27,3.17,0,1.52.72,2.7,2.15,3.55s3.67,1.77,6.69,2.75c3.04,1.03,5.51,2.01,7.41,2.94s3.53,2.3,4.92,4.08c1.39,1.79,2.09,4.08,2.09,6.92,0,2.68-.68,5.11-2.05,7.3-1.35,2.18-3.32,3.93-5.93,5.24-2.6,1.29-5.66,1.94-9.18,1.94s-6.54-.55-9.25-1.67-4.9-2.77-6.54-4.96-2.49-4.83-2.58-7.92h0ZM536.92,823.18h-7.11v16.89h-11.46v-47.06h18.56c3.74,0,6.92.65,9.5,1.96,2.6,1.29,4.54,3.08,5.83,5.36,1.31,2.28,1.96,4.9,1.96,7.85,0,2.72-.63,5.21-1.88,7.47-1.23,2.26-3.15,4.08-5.76,5.47s-5.81,2.07-9.65,2.07h0ZM542.55,808.17c0-1.88-.53-3.32-1.61-4.35-1.06-1.05-2.7-1.56-4.88-1.56h-6.23v11.8h6.23c2.18,0,3.82-.51,4.88-1.54,1.08-1.03,1.61-2.47,1.61-4.35ZM571.63,793.01v47.06h-11.46v-47.06h11.46ZM613.79,793.01v9.2h-12.46v37.86h-11.46v-37.86h-12.46v-9.2h36.38ZM648.84,831.77h-17.55l-2.81,8.3h-12.01l17.04-47.06h13.26l17.02,47.06h-12.12l-2.83-8.3ZM645.9,822.92l-5.83-17.23-5.76,17.23h11.59ZM680.42,831.22h15.01v8.85h-26.46v-47.06h11.46v38.2h0Z"/><path class="lg-t" d="M571.33,269.95s11.04,216.64-98.4,294.59c-109.44,77.95-237.19,27.25-254.65-2.29-17.47-29.53,27.9-51.88,37.58-55.29,9.68-3.42,40.64-3.2,117.12,14.93,76.48,18.13,118.37-38.87,139.13-106.67,20.75-67.8,27.78-161.73,59.23-145.27h0Z"/><path class="lg-t" d="M606.3,222.92s19.35,179.08-47.49,231.01c0,0,21.71-79.25,21.35-173.09-.24-63.44,26.14-57.92,26.14-57.92h0Z"/><path class="lg-t" d="M512.75,384.74s-26.5,118.06-91.38,125.71c-64.88,7.65-157.91-46.93-207.43,14.15,0,0,2.05-64.19,67.42-78.4,58.8-12.78,93.21,41.97,152.59,16.62,41.17-17.58,78.8-78.07,78.8-78.07h0Z"/><path class="lg-n" d="M169.88,503.03c-7.64,7.88-20.46,7.71-27.76-.48-62.61-70.28-84.81-167.65-57.85-258.85C126.92,99.41,278.76,16.73,423.3,59.38c58.83,17.39,109.62,53.76,144.89,103.35,6.37,8.95,3.67,21.49-5.73,27.18h0c-8.46,5.12-19.41,2.86-25.14-5.19-30.37-42.7-74.1-74.01-124.77-88.98-124.11-36.69-255.21,34.47-291.93,158.72-23.22,78.55-4.09,162.41,49.85,222.95,6.56,7.36,6.27,18.55-.59,25.63h0s0,0,0,0Z"/><path class="lg-n" d="M346.2,672.73C172.73,672.73,24.99,543.17.23,373.8c-1.8-12.31,7.37-23.56,19.77-24.54,11.42-.9,21.42,7.28,23.09,18.61,21.83,148.24,151.21,261.59,303.11,261.59,168.93,0,306.37-137.43,306.37-306.36,0-122.75-73.61-233.41-185.15-281.46-10.51-4.53-15.83-16.31-12-27.1v-.03c4.15-11.68,17.31-17.67,28.69-12.79,127.53,54.75,211.73,181.15,211.73,321.38,0,192.79-156.85,349.63-349.64,349.63h0Z"/><path class="lg-t" d="M438.04,300.37c-10.27,9.61-22.57,16.62-35.86,20.61-10.99,3.29-22.16-4.63-22.69-16.08-.38-8.24,5.1-15.35,12.98-17.78,16.2-4.99,29.95-17.37,36.1-35,5.54-15.88,3.27-33.86-5.98-47.91-19.39-29.42-59.56-33.25-84.13-10.25-8.39,7.85-13.84,17-15.75,26.45-2.42,11.91-.84,26.55-.82,26.7l.11,1.37,2.82,75.8c.36,9.72-7.23,17.89-16.95,18.26-9.72.36-17.89-7.23-18.25-16.95l-2.79-75.18c-.42-4.11-1.86-21.08,1.37-36.99,3-14.83,10.5-28.82,21.81-40.81,32.28-34.19,83.99-39,121.17-10.22,45.23,35.02,46.87,100.54,6.86,137.98h0Z"/><path class="lg-t" d="M219.72,256.6c10.27-9.61,22.57-16.62,35.86-20.61,10.98-3.29,22.16,4.63,22.69,16.08.38,8.24-5.1,15.35-12.98,17.78-16.2,4.99-29.95,17.37-36.1,35-5.54,15.88-3.27,33.86,5.98,47.91,19.39,29.43,59.56,33.25,84.13,10.25,8.39-7.85,13.84-17,15.75-26.45,2.42-11.91.84-26.55.82-26.7l-.11-1.37-2.82-75.8c-.36-9.72,7.23-17.89,16.95-18.26,9.72-.36,17.89,7.23,18.25,16.95l2.79,75.18c.42,4.11,1.86,21.08-1.37,36.99-3,14.83-10.5,28.82-21.81,40.81-32.28,34.19-83.99,39-121.17,10.22-45.23-35.02-46.87-100.54-6.86-137.98h0Z"/></svg><p class="expo-foot"><a href="https://www.instagram.com/reel/DeyyjW4qTkR/" target="_blank" rel="noopener" data-t="expoName"></a></p></footer>
+  <footer><svg class="logo" viewBox="0 0 695.84 840.55" role="img" aria-label="Dr. Abdul Samad Memorial Hospital"><path class="lg-n" d="M58.73,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38H10.14v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52,2.34,4.08,3.51,8.77,3.51,14.12ZM45.32,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0ZM93.69,759.65l-11.24-20.41h-3.16v20.41h-13.16v-54.07h22.09c4.26,0,7.9.74,10.89,2.25,3.01,1.48,5.26,3.51,6.74,6.11,1.48,2.6,2.23,5.48,2.23,8.67,0,3.6-1,6.81-3.03,9.63s-5.02,4.82-8.97,6l12.48,21.41h-14.86ZM79.29,729.92h8.16c2.42,0,4.23-.59,5.43-1.77s1.81-2.84,1.81-5-.61-3.67-1.81-4.85c-1.2-1.2-3.01-1.79-5.43-1.79h-8.16v13.4h0ZM114.62,753.19c0-2.05.72-3.78,2.18-5.15,1.46-1.4,3.36-2.1,5.67-2.1s4.1.7,5.57,2.1c1.46,1.38,2.2,3.1,2.2,5.15s-.74,3.67-2.2,5.04c-1.46,1.35-3.32,2.03-5.57,2.03s-4.21-.68-5.67-2.03c-1.46-1.38-2.18-3.06-2.18-5.04ZM171.68,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54h0ZM168.3,739.94l-6.7-19.8-6.61,19.8h13.31ZM237.9,744.94c0,4.52-1.57,8.12-4.74,10.76-3.16,2.64-7.55,3.95-13.21,3.95h-25.17v-54.07h24.34c5.48,0,9.78,1.27,12.88,3.78,3.12,2.51,4.67,5.94,4.67,10.26,0,3.16-.83,5.81-2.51,7.92-1.66,2.12-3.89,3.58-6.66,4.39,3.12.68,5.63,2.23,7.53,4.67,1.9,2.42,2.86,5.22,2.86,8.34h0ZM207.95,727.45h8.62c2.16,0,3.8-.48,4.95-1.42,1.16-.94,1.75-2.34,1.75-4.19s-.59-3.25-1.75-4.23c-1.16-.98-2.79-1.46-4.95-1.46h-8.62v11.31h0ZM224.59,743.17c0-1.9-.63-3.38-1.9-4.45-1.24-1.09-2.99-1.64-5.19-1.64h-9.54v11.94h9.69c2.2,0,3.93-.5,5.13-1.48,1.2-1,1.81-2.47,1.81-4.36h0ZM294.13,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38h-20.26v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52,2.34,4.08,3.51,8.77,3.51,14.12h0ZM280.73,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0ZM314.45,705.58v32.35c0,3.23.79,5.72,2.38,7.46s3.95,2.62,7.03,2.62,5.43-.87,7.07-2.62c1.64-1.75,2.47-4.23,2.47-7.46v-32.35h13.16v32.28c0,4.82-1.03,8.91-3.08,12.24-2.05,3.34-4.8,5.85-8.27,7.55-3.47,1.68-7.33,2.53-11.59,2.53s-8.08-.83-11.44-2.51-6.02-4.19-7.97-7.55-2.92-7.44-2.92-12.27v-32.28h13.16ZM368.97,749.48h17.24v10.17h-30.4v-54.07h13.16v43.89h0ZM407.32,743.47h14.01c.2,2.01.89,3.54,2.07,4.58,1.2,1.05,2.73,1.57,4.63,1.57s3.49-.44,4.61-1.33c1.13-.89,1.7-2.14,1.7-3.73,0-1.33-.46-2.44-1.35-3.32-.89-.87-1.99-1.59-3.3-2.16s-3.16-1.2-5.59-1.92c-3.49-1.07-6.35-2.16-8.56-3.23-2.2-1.07-4.1-2.66-5.7-4.78s-2.38-4.85-2.38-8.23c0-5.04,1.81-8.97,5.46-11.83s8.4-4.28,14.25-4.28,10.76,1.42,14.41,4.28,5.61,6.81,5.85,11.9h-14.23c-.11-1.75-.76-3.12-1.94-4.1-1.18-1-2.68-1.51-4.54-1.51-1.59,0-2.86.41-3.84,1.27-.98.85-1.46,2.05-1.46,3.65,0,1.75.83,3.1,2.47,4.08s4.21,2.03,7.68,3.16c3.49,1.18,6.33,2.31,8.51,3.38,2.18,1.07,4.06,2.64,5.65,4.69,1.59,2.05,2.4,4.69,2.4,7.94,0,3.08-.79,5.87-2.36,8.38-1.55,2.51-3.82,4.52-6.81,6.02-2.99,1.48-6.5,2.23-10.54,2.23s-7.51-.63-10.63-1.92-5.63-3.19-7.51-5.7c-1.88-2.51-2.86-5.54-2.97-9.1h0ZM489.87,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54h0ZM486.49,739.94l-6.7-19.8-6.61,19.8h13.31ZM574.19,705.58v54.07h-13.16v-32.41l-12.09,32.41h-10.63l-12.16-32.5v32.5h-13.16v-54.07h15.54l15.17,37.43,15.02-37.43h15.48ZM617.32,750.11h-20.17l-3.23,9.54h-13.79l19.58-54.07h15.24l19.56,54.07h-13.93l-3.25-9.54ZM613.93,739.94l-6.7-19.8-6.61,19.8h13.31ZM689.02,732.63c0,5.28-1.18,9.97-3.51,14.1-2.34,4.1-5.63,7.29-9.93,9.54-4.28,2.25-9.23,3.38-14.89,3.38h-20.26v-54.07h20.26c5.7,0,10.67,1.13,14.93,3.4,4.26,2.25,7.55,5.43,9.89,9.52s3.51,8.77,3.51,14.12h0ZM675.61,732.63c0-4.98-1.4-8.84-4.17-11.61-2.77-2.77-6.63-4.17-11.61-4.17h-6.24v31.41h6.24c4.98,0,8.84-1.35,11.61-4.08,2.77-2.73,4.17-6.57,4.17-11.55h0Z"/><path class="lg-n" d="M57.67,793.01v47.06h-11.46v-28.21l-10.53,28.21h-9.25l-10.58-28.29v28.29H4.39v-47.06h13.53l13.2,32.58,13.07-32.58h13.47ZM77.39,802.21v9.52h15.35v8.83h-15.35v10.33h17.36v9.18h-28.82v-47.06h28.82v9.2h-17.36ZM155.47,793.01v47.06h-11.46v-28.21l-10.53,28.21h-9.25l-10.58-28.29v28.29h-11.46v-47.06h13.53l13.2,32.58,13.07-32.58h13.47ZM161.77,816.42c0-4.62,1.08-8.74,3.25-12.41,2.18-3.67,5.11-6.52,8.8-8.57,3.69-2.07,7.73-3.1,12.16-3.1s8.47,1.03,12.16,3.1c3.69,2.05,6.59,4.9,8.7,8.57,2.13,3.67,3.19,7.79,3.19,12.41s-1.06,8.74-3.21,12.42c-2.15,3.69-5.05,6.55-8.72,8.63-3.67,2.05-7.69,3.08-12.12,3.08s-8.47-1.03-12.16-3.08c-3.69-2.07-6.61-4.94-8.8-8.63-2.17-3.69-3.25-7.83-3.25-12.42ZM198.38,816.42c0-4.16-1.14-7.47-3.4-9.96-2.26-2.49-5.26-3.72-9-3.72s-6.82,1.24-9.08,3.69c-2.26,2.45-3.38,5.79-3.38,9.99s1.12,7.47,3.38,9.96c2.26,2.47,5.28,3.7,9.08,3.7s6.74-1.25,9-3.74c2.26-2.51,3.4-5.81,3.4-9.92h0ZM240.41,840.07l-9.78-17.76h-2.75v17.76h-11.46v-47.06h19.23c3.7,0,6.88.65,9.48,1.96,2.62,1.29,4.58,3.06,5.87,5.32,1.29,2.26,1.94,4.77,1.94,7.54,0,3.13-.87,5.93-2.64,8.38-1.77,2.45-4.37,4.2-7.81,5.22l10.87,18.64h-12.94ZM227.87,814.2h7.11c2.11,0,3.69-.51,4.73-1.54,1.05-1.03,1.58-2.47,1.58-4.35s-.53-3.19-1.58-4.22c-1.04-1.04-2.62-1.56-4.73-1.56h-7.11v11.66ZM271.56,793.01v47.06h-11.46v-47.06h11.46ZM309.16,831.77h-17.55l-2.81,8.3h-12.01l17.04-47.06h13.26l17.02,47.06h-12.12l-2.83-8.3h0ZM306.21,822.92l-5.83-17.23-5.76,17.23h11.59ZM340.73,831.22h15.01v8.85h-26.46v-47.06h11.46v38.2h0ZM416.21,793.01v47.06h-11.47v-19.38h-17.82v19.38h-11.46v-47.06h11.46v18.45h17.82v-18.45h11.47ZM422.5,816.42c0-4.62,1.08-8.74,3.25-12.41,2.18-3.67,5.11-6.52,8.8-8.57,3.69-2.07,7.73-3.1,12.16-3.1s8.47,1.03,12.16,3.1c3.69,2.05,6.59,4.9,8.7,8.57,2.13,3.67,3.19,7.79,3.19,12.41s-1.06,8.74-3.21,12.42c-2.15,3.69-5.05,6.55-8.72,8.63-3.67,2.05-7.69,3.08-12.12,3.08s-8.47-1.03-12.16-3.08c-3.69-2.07-6.61-4.94-8.8-8.63-2.17-3.69-3.25-7.83-3.25-12.42h0ZM459.11,816.42c0-4.16-1.14-7.47-3.4-9.96-2.26-2.49-5.26-3.72-9-3.72s-6.82,1.24-9.08,3.69c-2.26,2.45-3.38,5.79-3.38,9.99s1.12,7.47,3.38,9.96c2.26,2.47,5.28,3.7,9.08,3.7s6.74-1.25,9-3.74c2.26-2.51,3.4-5.81,3.4-9.92h0ZM475.79,825.99h12.2c.17,1.75.78,3.08,1.8,3.99,1.04.91,2.37,1.37,4.03,1.37s3.04-.38,4.01-1.16c.99-.78,1.48-1.86,1.48-3.25,0-1.16-.4-2.13-1.18-2.89-.78-.76-1.73-1.39-2.87-1.88-1.14-.49-2.75-1.04-4.86-1.67-3.04-.93-5.53-1.88-7.45-2.81-1.92-.93-3.57-2.32-4.96-4.16-1.39-1.84-2.07-4.22-2.07-7.16,0-4.39,1.58-7.81,4.75-10.3s7.31-3.72,12.41-3.72,9.37,1.24,12.54,3.72c3.17,2.49,4.88,5.93,5.09,10.35h-12.39c-.09-1.52-.67-2.72-1.69-3.57-1.03-.87-2.34-1.31-3.95-1.31-1.39,0-2.49.36-3.34,1.1-.85.74-1.27,1.79-1.27,3.17,0,1.52.72,2.7,2.15,3.55s3.67,1.77,6.69,2.75c3.04,1.03,5.51,2.01,7.41,2.94s3.53,2.3,4.92,4.08c1.39,1.79,2.09,4.08,2.09,6.92,0,2.68-.68,5.11-2.05,7.3-1.35,2.18-3.32,3.93-5.93,5.24-2.6,1.29-5.66,1.94-9.18,1.94s-6.54-.55-9.25-1.67-4.9-2.77-6.54-4.96-2.49-4.83-2.58-7.92h0ZM536.92,823.18h-7.11v16.89h-11.46v-47.06h18.56c3.74,0,6.92.65,9.5,1.96,2.6,1.29,4.54,3.08,5.83,5.36,1.31,2.28,1.96,4.9,1.96,7.85,0,2.72-.63,5.21-1.88,7.47-1.23,2.26-3.15,4.08-5.76,5.47s-5.81,2.07-9.65,2.07h0ZM542.55,808.17c0-1.88-.53-3.32-1.61-4.35-1.06-1.05-2.7-1.56-4.88-1.56h-6.23v11.8h6.23c2.18,0,3.82-.51,4.88-1.54,1.08-1.03,1.61-2.47,1.61-4.35ZM571.63,793.01v47.06h-11.46v-47.06h11.46ZM613.79,793.01v9.2h-12.46v37.86h-11.46v-37.86h-12.46v-9.2h36.38ZM648.84,831.77h-17.55l-2.81,8.3h-12.01l17.04-47.06h13.26l17.02,47.06h-12.12l-2.83-8.3ZM645.9,822.92l-5.83-17.23-5.76,17.23h11.59ZM680.42,831.22h15.01v8.85h-26.46v-47.06h11.46v38.2h0Z"/><path class="lg-t" d="M571.33,269.95s11.04,216.64-98.4,294.59c-109.44,77.95-237.19,27.25-254.65-2.29-17.47-29.53,27.9-51.88,37.58-55.29,9.68-3.42,40.64-3.2,117.12,14.93,76.48,18.13,118.37-38.87,139.13-106.67,20.75-67.8,27.78-161.73,59.23-145.27h0Z"/><path class="lg-t" d="M606.3,222.92s19.35,179.08-47.49,231.01c0,0,21.71-79.25,21.35-173.09-.24-63.44,26.14-57.92,26.14-57.92h0Z"/><path class="lg-t" d="M512.75,384.74s-26.5,118.06-91.38,125.71c-64.88,7.65-157.91-46.93-207.43,14.15,0,0,2.05-64.19,67.42-78.4,58.8-12.78,93.21,41.97,152.59,16.62,41.17-17.58,78.8-78.07,78.8-78.07h0Z"/><path class="lg-n" d="M169.88,503.03c-7.64,7.88-20.46,7.71-27.76-.48-62.61-70.28-84.81-167.65-57.85-258.85C126.92,99.41,278.76,16.73,423.3,59.38c58.83,17.39,109.62,53.76,144.89,103.35,6.37,8.95,3.67,21.49-5.73,27.18h0c-8.46,5.12-19.41,2.86-25.14-5.19-30.37-42.7-74.1-74.01-124.77-88.98-124.11-36.69-255.21,34.47-291.93,158.72-23.22,78.55-4.09,162.41,49.85,222.95,6.56,7.36,6.27,18.55-.59,25.63h0s0,0,0,0Z"/><path class="lg-n" d="M346.2,672.73C172.73,672.73,24.99,543.17.23,373.8c-1.8-12.31,7.37-23.56,19.77-24.54,11.42-.9,21.42,7.28,23.09,18.61,21.83,148.24,151.21,261.59,303.11,261.59,168.93,0,306.37-137.43,306.37-306.36,0-122.75-73.61-233.41-185.15-281.46-10.51-4.53-15.83-16.31-12-27.1v-.03c4.15-11.68,17.31-17.67,28.69-12.79,127.53,54.75,211.73,181.15,211.73,321.38,0,192.79-156.85,349.63-349.64,349.63h0Z"/><path class="lg-t" d="M438.04,300.37c-10.27,9.61-22.57,16.62-35.86,20.61-10.99,3.29-22.16-4.63-22.69-16.08-.38-8.24,5.1-15.35,12.98-17.78,16.2-4.99,29.95-17.37,36.1-35,5.54-15.88,3.27-33.86-5.98-47.91-19.39-29.42-59.56-33.25-84.13-10.25-8.39,7.85-13.84,17-15.75,26.45-2.42,11.91-.84,26.55-.82,26.7l.11,1.37,2.82,75.8c.36,9.72-7.23,17.89-16.95,18.26-9.72.36-17.89-7.23-18.25-16.95l-2.79-75.18c-.42-4.11-1.86-21.08,1.37-36.99,3-14.83,10.5-28.82,21.81-40.81,32.28-34.19,83.99-39,121.17-10.22,45.23,35.02,46.87,100.54,6.86,137.98h0Z"/><path class="lg-t" d="M219.72,256.6c10.27-9.61,22.57-16.62,35.86-20.61,10.98-3.29,22.16,4.63,22.69,16.08.38,8.24-5.1,15.35-12.98,17.78-16.2,4.99-29.95,17.37-36.1,35-5.54,15.88-3.27,33.86,5.98,47.91,19.39,29.43,59.56,33.25,84.13,10.25,8.39-7.85,13.84-17,15.75-26.45,2.42-11.91.84-26.55.82-26.7l-.11-1.37-2.82-75.8c-.36-9.72,7.23-17.89,16.95-18.26,9.72-.36,17.89,7.23,18.25,16.95l2.79,75.18c.42,4.11,1.86,21.08-1.37,36.99-3,14.83-10.5,28.82-21.81,40.81-32.28,34.19-83.99,39-121.17,10.22-45.23-35.02-46.87-100.54-6.86-137.98h0Z"/></svg></footer>
 </div>
 
 <script>
@@ -250,7 +250,7 @@ const S={
 en:{
  brand:"Mind Check", hello:"Hello there", title:"How have you been feeling lately?",
  lead:"Answer a few short questions about the last two weeks, and we'll share some ideas that might help you feel your best.",
- f1a:"3 minutes", f1b:"19 quick questions", f2a:"Private", f2b:"Nothing is saved or sent", f3a:"Trusted", f3b:"Questions used by doctors",
+ fact1:"3 minutes, 19 questions", fact2:"Private, nothing is saved", fact3:"Questions used by doctors",
  expo:"At the Maldives Health and Family Expo 2026", expoAt:"Part of the", expoName:"Maldives Health and Family Expo 2026",
  start:"Let's begin", back:"Back", footer:"Dr. Abdul Samad Memorial Hospital, Thinadhoo",
  count:(a,b)=>a+" of "+b,
@@ -313,7 +313,7 @@ en:{
 dv:{
  brand:"ނަފްސާނީ ސިއްޙަތު ޗެކް", hello:"މަރުޙަބާ", title:"މިދުވަސްވަރު ތިބާގެ ހާލު ކިހިނެއް؟",
  lead:"ފާއިތުވި ދެ ހަފްތާއާއި ބެހޭ ކުރު ސުވާލު ކޮޅަކަށް ޖަވާބު ދެއްވާ. ތިބާގެ ހާލު ރަގަނޅުކުރުމަށް އެހީވެދާނެ ބައެއް ލަފާތައް އަޅުގަނޑުމެން ހިއްސާކޮށްދޭނަން.",
- f1a:"3 މިނިޓު", f1b:"19 ކުރު ސުވާލު", f2a:"ސިއްރު", f2b:"އެއްވެސް މައުލޫމާތެއް ރައްކާއެއް ނުކުރެވޭ", f3a:"އިތުބާރުހުރި", f3b:"ޑޮކްޓަރުން ބޭނުންކުރާ ސުވާލުތައް",
+ fact1:"3 މިނިޓު، 19 ސުވާލު", fact2:"ސިއްރު، އެއްވެސް މައުލޫމާތެއް ރައްކާއެއް ނުކުރެވޭ", fact3:"ޑޮކްޓަރުން ބޭނުންކުރާ ސުވާލުތައް",
  expo:"މޯލްޑިވްސް ހެލްތު އެންޑް ފެމިލީ އެކްސްޕޯ 2026", expoAt:"", expoName:"މޯލްޑިވްސް ހެލްތު އެންޑް ފެމިލީ އެކްސްޕޯ 2026",
  start:"ފަށަމާ", back:"ފަހަތަށް", footer:"ޑރ. އަބްދުއްޞަމަދު މެމޯރިއަލް ހޮސްޕިޓަލް، ތިނަދޫ",
  count:(a,b)=>a+" / "+b,
@@ -394,6 +394,7 @@ function setLang(l){
   document.documentElement.lang=l;
   document.documentElement.dir=l==="dv"?"rtl":"ltr";
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l));
+  document.querySelectorAll(".starts .btn").forEach(b=>b.classList.toggle("outline",b.dataset.lang!==l));
   document.querySelectorAll("[data-t]").forEach(el=>el.textContent=L()[el.dataset.t]);
   document.title=L().brand;
   if(screen==="quiz")render();
@@ -518,7 +519,7 @@ function results(){
 }
 
 document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
-$("start").onclick=()=>{i=0;nav({s:"quiz",i:0});show("quiz");render()};
+document.querySelectorAll(".starts .btn").forEach(b=>b.onclick=()=>{if(lang!==b.dataset.lang)setLang(b.dataset.lang);i=0;nav({s:"quiz",i:0});show("quiz");render()});
 $("back").onclick=()=>{
   busy=false;
   const st=history.state;
